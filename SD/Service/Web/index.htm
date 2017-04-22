@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>3D Printer Control</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="icon" href="images/favicon.ico?" type="image/x-icon">
+        <script src="control.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>3D Printer Control</h1>
+        </header>    
+        <nav id="menu">
+            <ul>
+                <li><a href="index.htm">Control</a></li>
+                <li><a href="file.htm">Files</a></li>
+                <li><a href="con.htm">Connection</a></li>
+            </ul>
+        </nav>
+        <article>
+            <br><b>Control:</b><br><br>
+            <table>
+                <tr>
+                    <td>
+                        <!-- Console -->
+                        <table>
+                            <tr><td colspan="2">
+                                <form action="">
+                                    G-Code: <input type="text" value="" id="gcode_str">
+                                    <input type="button" value="Send" onclick="SendGCode()">
+                                </form>
+                            </td></tr>
+                            <tr><td colspan="2">
+                                <iframe id="uart_log" width="500" height="500"></iframe>
+                            </td></tr>
+                            <tr>
+                                <td>Enable RX log<input type="checkbox" onclick="EnableRxLog()" id="rx_checkbox"></td>
+                                <td>Enable TX log<input type="checkbox" onclick="EnableTxLog()" id="tx_checkbox"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <!-- Control -->
+                        <table>
+                            <tr>
+                                <td>X:</td><td><label id="cur_x">0</label></td>
+                                <td>Y:</td><td><label id="cur_y">0</label></td>
+                                <td>Z:</td><td><label id="cur_z">0</label></td>
+                                <td></td>
+                                <td>E:</td><td><label id="cur_e">0</label></td>
+<!--                                <td colspan="2">
+                                    <select id="extruder_select" name="extruder">
+                                        <option>Extruder 1</option>
+                                        <option>Extruder 2</option>
+                                    </select>
+                                </td> -->
+                            </tr>
+                            <tr>
+                                <td colspan="9">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td><button id="home_x" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/home_x.png" alt="home" height="46" width="46"></button></td>
+                                <td></td>
+                                <td><button id="fast_up_y" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/f_up.png" alt="fast up"></button></td>
+                                <td></td>
+                                <td><button id="home_y" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/home_y.png" alt="home" height="46" width="46"></button></td>
+                                <td></td>
+                                <td><button id="fast_up_z" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/f_up.png" alt="fast up"></button></td>
+                                <td></td>
+                                <td><button id="fast_back_e" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/f_up.png" alt="fast up"></button></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><button id="up_y" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/up.png" alt="up"></button></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><button id="up_z" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/up.png" alt="up"></button></td>
+                                <td></td>
+                                <td><button id="back_e" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/up.png" alt="up"></button></td>
+                            </tr>
+                            <tr>
+                                <td><button id="fast_left_x" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/f_left.png" alt="fast left"></button></td>
+                                <td><button id="left_x" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/left.png" alt="left"></button></td>
+                                <td>&nbsp;&nbsp;</td>
+                                <td><button id="right_x" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/right.png" alt="right"></button></td>
+                                <td><button id="fast_right_x" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/f_right.png" alt="fast right"></button></td>
+                                <td>&nbsp;&nbsp;</td>
+                                <td>&nbsp;&nbsp;</td>
+                                <td>&nbsp;&nbsp;</td>
+                                <td>&nbsp;&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><button id="down_y" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/down.png" alt="down"></button></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><button id="down_z" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/down.png" alt="down"></button></td>
+                                <td></td>
+                                <td><button id="forward_e" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/down.png" alt="down"></button></td>
+                            </tr>
+                            <tr>
+                                <td><button id="home_all" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/home.png" alt="home" height="46" width="46"></button></td>
+                                <td></td>
+                                <td><button id="fast_down_y" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/f_down.png" alt="fast down"></button></td>
+                                <td></td>
+                                <td><button id="home_z" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/home_z.png" alt="home" height="46" width="46"></button></td>
+                                <td></td>
+                                <td><button id="fast_down_z" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/f_down.png" alt="fast down"></button></td>
+                                <td></td>
+                                <td><button id="fast_forward_e" class="ctrl_button" onclick="SendControlCmd(this.id)"><img src="images/f_down.png" alt="fast down"></button></td>
+                            </tr>
+                            <tr>
+                                <td colspan="9">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Extruder:</td>
+                                <td colspan="3"><button id="extruder_low" class="small_button" onclick="SendControlCmd(this.id)"><img src="images/minus.png" alt="e_minus" height="10" width="10"></button>
+                                    <input  type="text" size="5" id="set_e_temp" value="20">
+                                <button id="extruder_high" class="small_button" onclick="SendControlCmd(this.id)"><img src="images/plus.png" alt="e_minus" height="10" width="10"></button></td>
+                                <td></td>
+                                <td></td>
+                                <td colspan="2"><label id="cur_e_temp">0</label></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Table:</td>
+                                <td colspan="3"><button id="table_low" class="small_button" onclick="SendControlCmd(this.id)"><img src="images/minus.png" alt="e_minus" height="10" width="10"></button>
+                                    <input  type="text" size="5" id="set_t_temp" value="20">
+                                <button id="table_high" class="small_button" onclick="SendControlCmd(this.id)"><img src="images/plus.png" alt="e_minus" height="10" width="10"></button></td>
+                                <td></td>
+                                <td></td>
+                                <td colspan="2"><label id="cur_t_temp">0</label></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button id="tcp_uart_bridge" onclick="SetTcpUartBridgeState()">TCP-UART bridge: Disable</button>
+                    </td>
+                </tr>
+            </table>
+        </article>
+        <footer>
+            <span>Printer state:</span>&nbsp;&nbsp;&nbsp;<span id="status_label">ready</span>
+        </footer>
+    </body>
+</html>

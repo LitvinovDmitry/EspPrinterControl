@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>3D Printer Control</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="icon" href="images/favicon.ico?" type="image/x-icon">
+        <script src="con.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>3D Printer Control</h1>
+        </header>    
+        <nav id="menu">
+            <ul>
+                <li><a href="index.htm">Control</a></li>
+                <li><a href="file.htm">Files</a></li>
+                <li><a href="con.htm">Connection</a></li>
+            </ul>
+        </nav>
+        <article>
+            <br><b>WiFi connection:</b><br><br>
+        </article>
+        <footer>
+            <table>
+                <tr>
+                   <td>Create WiFi access point<input type="checkbox" onclick="EnableAP()" id="ap_checkbox"></td>
+                </tr>
+                <tr>
+                    <td>SSID:</td><td><input  type="text" size="40" id="ssid"></td>
+                </tr>
+                <tr>
+                    <td>Password:</td><td><input  type="password" size="40" id="pass"></td>
+                </tr>
+                <tr>
+                    <td>Name:</td><td><input  type="text" size="40" id="name"></td>
+                </tr>
+                <tr>
+                    <td>IP:</td><td><input  type="text" size="40" id="ip"></td>
+                </tr>
+                <tr>
+                    <td>WEB server port:</td><td><input  type="text" size="40" id="web_server_port"></td>
+                </tr>
+                <tr>
+                    <td>TCP<->UART port:</td><td><input  type="text" size="40" id="tcp_uart_port"></td>
+                </tr>
+                <tr><td>&nbsp</td><td>&nbsp</td>
+                </tr>
+                <tr>
+                    <td><button id="save_button" onclick="SaveConnection()">Save</button></td>
+                    <td><button id="reset_button" onclick="ResetEsp()">Reboot</button></td>
+                </tr>
+            </table>
+        </footer>
+    </body>
+</html>

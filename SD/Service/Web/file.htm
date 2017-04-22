@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>3D Printer Control</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="icon" href="images/favicon.ico?" type="image/x-icon">
+        <script src="file.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>3D Printer Control</h1>
+        </header>    
+        <nav id="menu">
+            <ul>
+                <li><a href="index.htm">Control</a></li>
+                <li><a href="file.htm">Files</a></li>
+                <li><a href="con.htm">Connection</a></li>
+            </ul>
+        </nav>
+        <article>
+            <br><b>Files:</b><br><br>
+            <table>
+                <thead><tr>
+                        <td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Name&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+                        <td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Size&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+                        <td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Date&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+                </tr></thead>
+                <tbody id="file_list">
+                </tbody>
+            </table>
+        </article>
+        <footer>
+            <table>
+                <tr>
+                    <td>
+                        <form action="">
+                            <input type="file" id="file_name">
+                            <input id="load_button" type="button" value="Load file" onclick="LoadFile()">
+                        </form>
+                    </td>
+                    <td><button id="create_dir" onclick="CreateDir()">Make dir</button></td>
+                    <td><button id="delete_file" onclick="DeleteFile()">Del</button></td>
+                    <td><button id="print_file" onclick="PrintFile()">Print</button></td>
+                </tr>
+            </table>
+        </footer>
+    </body>
+</html>
